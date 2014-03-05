@@ -1,7 +1,14 @@
+/* Copyright (C) 2014 RIVAS TECH SOCIETY. All rights reserved.
+
+ Contact information
+ -------------------
+
+ RIVAS TECH SOCIETY y @Diverduino
+ Web      :  http://www.diverduino.com
+ e-mail   :  diverduino@gmail.com
+*/
 /*
 Tempus.h - Librería para gestión de tiempo.
-Creada por Roberto Finistrosa, 10 Noviembre 2013.
-Released into the public domain.
 */
 
 #ifndef _TEMPUS_H

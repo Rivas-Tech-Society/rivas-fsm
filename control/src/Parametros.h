@@ -1,9 +1,11 @@
-/*
-Proyecto: Cuadricoptero - FXM - RIVAS TECH SOCIETY
-Fichero de parámetros
+/* Copyright (C) 2014 RIVAS TECH SOCIETY. All rights reserved.
 
-Autor: Rivas Tech Society & www.diverduino.com
-Licencia: 
+ Contact information
+ -------------------
+
+ RIVAS TECH SOCIETY y @Diverduino
+ Web      :  http://www.diverduino.com
+ e-mail   :  diverduino@gmail.com
 */
 
 #define N_MOTORES 2 // Balancín-Bicoptero
@@ -21,6 +23,10 @@ Licencia:
 #define ACC_Y_REPOSO 0  // Sin calibrar. No usado en balancín
 #define ACC_Z_REPOSO 0   // Sin calibrar. No usado en balancín
 #define ACC_MARGEN 10 //Parámetro para ajuste en las lecturas. No usado de momento
+
+#define TIEMPO_LECTURA_IMU 1  // milisegundos
+#define TIEMPO_ACTUALIZACION_VELOCIDAD 0.5 //milisegundos
+
 
 
 

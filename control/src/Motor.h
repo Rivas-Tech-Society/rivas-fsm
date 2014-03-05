@@ -1,7 +1,14 @@
+/* Copyright (C) 2014 RIVAS TECH SOCIETY. All rights reserved.
+
+ Contact information
+ -------------------
+
+ RIVAS TECH SOCIETY y @Diverduino
+ Web      :  http://www.diverduino.com
+ e-mail   :  diverduino@gmail.com
+*/
 /*
 Motor.h - Clase para la gestión de motores.
-Creada por Roberto Finistrosa, 20 Febrero 2014.
-Released into the public domain.
 */
 
 #ifndef _MOTOR_H

@@ -1,12 +1,5 @@
 /* Copyright (C) 2014 RIVAS TECH SOCIETY. All rights reserved.
 
- This software may be distributed and modified under the terms of the GNU
- General Public License version 2 (GPL2) as published by the Free Software
- Foundation and appearing in the file GPL2.TXT included in the packaging of
- this file. Please note that GPL2 Section 2[b] requires that all works based
- on this software must also be made publicly available under the terms of
- the GPL2 ("Copyleft").
-
  Contact information
  -------------------
 
@@ -32,7 +25,7 @@ Unidad autónoma de vuelo, con las siguientes características:
 
 //usamos la librería Timer para generar eventos de tiempo
 #include "Timer.h"
-Timer t1, t2;
+Timer t1, t2, t3;
 
 // fichero con la configuración básica del sistema
 #include "Parametros.h"
@@ -120,9 +113,11 @@ void setup(){
   //imu.setAccYZeroG(zeroValue[4]);
   //imu.setAccZZeroG(zeroValue[5]);
   
-    // utilizada para generar eventos de tiempo cada dos segundos
-  //int tickEvent1 = t1.every(5000, actualizaVelocidad, (void*)0);
-  int tickEvent2 = t2.every(500, muestraEstado, (void*)0);
+  // utilizada para generar eventos de tiempo cada x milisegundos
+  // 
+  int tickEvent1 = t1.every(TIEMPO_LECTURA_IMU, lecturaIMU, (void*)0);
+ // int tickEvent2 = t2.every(500, muestraEstado, (void*)0);
+  int tickEvent3 = t3.every(TIEMPO_ACTUALIZACION_VELOCIDAD, actualizaVelocidadRoll, (void*)0);
 
   // No es necesario, porque por defecto son de entrada, pero....
   pinMode(Xpin, INPUT);
@@ -139,7 +134,7 @@ void setup(){
   rollSetpoint = ACC_X_REPOSO;
   //turn the PID on
   rollPID.SetMode(AUTOMATIC);
-  rollPID.SetOutputLimits(-1000, 1000);
+  rollPID.SetOutputLimits(-100, 100);
  
   // Arrancamos el Quad
   uav.start();
@@ -149,7 +144,6 @@ void setup(){
       //balancín
         sE.attach(9);  // servo control Motor Dcho
         sO.attach(10);  // servo control Motor Izqdo
-        // Para elevarnos, samos una velocidad
         sE.write(V_ARRANQUE);
         sO.write(V_ARRANQUE);
       break;
@@ -176,9 +170,45 @@ void setup(){
 
 void loop(){
     // llamada a la generación de eventos de tiempo
-  //t1.update();
-  t2.update();
   
+  // lectura IMU
+  t1.update();
+ // t2.update();
+ // actualiza Velocidad
+  t3.update();
+  
+ 
+
+}
+
+   
+void actualizaVelocidadRoll(void *context)
+{
+
+      //float offset = map (rollOutput, -5, 5, 0, 180);
+      float offset = rollOutput;
+      uav.M[0].setVelocidad(V_ESTABLE+offset);
+      uav.M[1].setVelocidad(V_ESTABLE-offset);
+      sE.write(uav.M[0].getVelocidad());
+      sO.write(uav.M[1].getVelocidad());
+      Serial.print(" Salida: ");
+      Serial.print(rollOutput);
+      Serial.print(" Offset: ");
+      Serial.print(offset);
+      for (int i = 0; i< N_MOTORES; i++){
+          Serial.print(" Motor ");
+          Serial.print(i);
+          Serial.print(": ");
+          Serial.print(uav.M[i].getVelocidad());
+          Serial.print("\t");
+     }
+       Serial.print("\n");
+
+      
+}  
+  
+void lecturaIMU(void *context)
+{
   //Lectura datos IMU
   imu.setAccX(analogRead(Xpin)); // Leemos el valor de la tensión en el pin X
   imu.setAccY(analogRead(Ypin)); // Leemos el valor de la tensión en el pin Y
@@ -199,40 +229,10 @@ void loop(){
   }
 
   rollPID.Compute();
-  
-  
-  // Actualización Velocidad Motores
-  
-  actualizaVelocidadRoll(rollOutput);
-  
-  
-  Serial.print("Input: ");
-  Serial.print(rollInput);
-  Serial.print(" Salida: ");
-  Serial.print(rollOutput);
-  Serial.print(" Setpoint: ");
-  Serial.print(rollSetpoint);
 
-  Serial.print(" Roll: ");
-  Serial.print(imu.getRoll());
-  Serial.print(" Pitch: ");
-  Serial.println(imu.getPitch());
 
 
 }
-
-
- void actualizaVelocidadRoll(float offset)
- {
-   
-      uav.M[0].setVelocidad(V_ESTABLE+offset);
-      uav.M[1].setVelocidad(V_ESTABLE-offset);
-      sE.write(uav.M[0].getVelocidad());
-      sO.write(uav.M[1].getVelocidad());
- }
-   
-
-
    
 
  

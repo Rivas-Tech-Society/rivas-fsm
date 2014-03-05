@@ -1,7 +1,15 @@
+/* Copyright (C) 2014 RIVAS TECH SOCIETY. All rights reserved.
+
+ Contact information
+ -------------------
+
+ RIVAS TECH SOCIETY y @Diverduino
+ Web      :  http://www.diverduino.com
+ e-mail   :  diverduino@gmail.com
+*/
+
 /*
 Imu.h - Clase para la gestión de la Unidad de Medida Inercial (IMU).
-Creada por Roberto Finistrosa, 20 Febrero 2014.
-Released into the public domain.
 */
 
 // De momento usamos el Acelerómetro ADXL335, por lo que esta clase sólo se va a usar para la conversión de unidades

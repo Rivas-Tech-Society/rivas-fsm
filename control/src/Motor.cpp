@@ -1,7 +1,14 @@
+/* Copyright (C) 2014 RIVAS TECH SOCIETY. All rights reserved.
+
+ Contact information
+ -------------------
+
+ RIVAS TECH SOCIETY y @Diverduino
+ Web      :  http://www.diverduino.com
+ e-mail   :  diverduino@gmail.com
+*/
 /*
 Motor.cpp - Clase para gestión de motores.
-Creada por Roberto Finistrosa, 20 Febrero 2014.
-Released into the public domain.
 */
 #include <Arduino.h>
 #include "Motor.h"
